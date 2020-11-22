@@ -79,7 +79,6 @@ function render(data) {
     .append("circle")
     .attr("r", circleRadius)
     .classed("stateCircle", true)
-    .text("Text")
 
   // Update data
   circles
@@ -88,6 +87,23 @@ function render(data) {
 
   // Exit data
   circles.exit().remove();
+
+
+  //Add the SVG Text Element to the group
+  var text = g.selectAll("text")
+    .data(data)
+    .enter()
+    .append("text");
+
+  //Add SVG Text Element Attributes
+  var textLabels = text
+    .attr("x", function (d) { return xScale(d[xColumn]); })
+    .attr("y", function (d) { return yScale(d[yColumn]); })
+    .text(function (d) { return d['abbr']; })
+    .attr("font-family", "sans-serif")
+    .attr("font-size", "10px")
+    .attr("fill", "red");
+
 
 };
 

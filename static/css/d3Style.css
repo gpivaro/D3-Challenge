@@ -52,7 +52,7 @@
   border-radius: 4px;
 }
 
-
+/* Axis stile */
 .axis path,
 .axis line {
   fill: none;
@@ -60,6 +60,15 @@
   shape-rendering: crispEdges;
 }
 
+/* Axis font-size */
+.axis text{
+  /* font-size: 16pt; */
+}
+
+/* Axis label */
+.axis .label {
+  font-size: 16pt;
+}
 
 
 

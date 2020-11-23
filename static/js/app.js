@@ -7,7 +7,11 @@ var margin = { left: 30, top: 30, right: 30, bottom: 80 };
 // Define the inner frame dimension
 var innerWidth = outerWidth - margin.left - margin.right;
 var innerHeight = outerHeigth - margin.top - margin.bottom;
-var circleRadius = 10;
+
+// Circle properties
+var circleRadius = 12;
+var xCircleLabelOffset = circleRadius / 1.5;
+var yCircleLabelOffset = circleRadius / 4;
 
 // Define the data columns for the plot
 var xColumn = "poverty";
@@ -85,24 +89,25 @@ function render(data) {
     .attr("cx", function (d) { return xScale(d[xColumn]); })
     .attr("cy", function (d) { return yScale(d[yColumn]); });
 
+
   // Exit data
   circles.exit().remove();
 
 
   //Add the SVG Text Element to the group
-  var text = g.selectAll("text")
+  var text = g.selectAll("circles")
     .data(data)
     .enter()
     .append("text");
 
   //Add SVG Text Element Attributes
   var textLabels = text
-    .attr("x", function (d) { return xScale(d[xColumn]); })
-    .attr("y", function (d) { return yScale(d[yColumn]); })
+    .attr("x", function (d) { return (xScale(d[xColumn]) - xCircleLabelOffset); })
+    .attr("y", function (d) { return (yScale(d[yColumn]) + yCircleLabelOffset); })
     .text(function (d) { return d['abbr']; })
     .attr("font-family", "sans-serif")
     .attr("font-size", "10px")
-    .attr("fill", "red");
+    .attr("fill", "white");
 
 
 };

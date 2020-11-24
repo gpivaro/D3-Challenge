@@ -74,33 +74,24 @@ d3.csv("data/data.csv").then(function (data) {
         .classed("stateCircle", true)
         .attr("cx", d => xScale(d[xColumn]))
         .attr("cy", d => yScale(d[yColumn]))
-        .attr("width", xScale.bandwidth())
-        .attr("height", d => chartHeight - yScale(d[yColumn]))
-    // .append("text")
-    // .attr("x", d => xScale(d[xColumn]))
-    // .attr("y", d => yScale(d[yColumn]))
-    // .text("A");
-
 
 
     // Exit data
     circles.exit().remove();
 
 
-    // //Add the SVG Text Element to the group
-    // var text = chartGroup.selectAll("circle").data(data);
+    //Add the SVG Text Element to the group
+    var circlesLabel = chartGroup.selectAll("circles").data(data);
 
-    // //Add SVG Text Element Attributes
-    // text.enter()
-    //     .append("text")
-    //     .classed("stateText", true)
-    //     .attr("x", d => xScale(d[xColumn]))
-    //     .attr("y", d => yScale(d[yColumn]))
-    //     .text("a")
-    //     .attr("font-size", `${circleRadius}px`);
-
-
-
+    //Add SVG Text Element Attributes
+    circlesLabel.enter()
+        .append("text")
+        .classed("stateText", true)
+        .attr("text-anchor", "middle")
+        .attr("x", d => xScale(d[xColumn]))
+        .attr("y", d => yScale(d[yColumn]))
+        .text(d => `${d.abbr}`)
+        .attr("font-size", `${circleRadius}px`);
 
 
 }).catch(function (error) {

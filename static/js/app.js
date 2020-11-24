@@ -2,7 +2,7 @@
 // Define the svg dimensions
 var outerWidth = 700;
 var outerHeigth = 450;
-var margin = { left: 30, top: 30, right: 30, bottom: 80 };
+var margin = { left: 80, top: 30, right: 30, bottom: 80 };
 
 // Define the inner frame dimension
 var innerWidth = outerWidth - margin.left - margin.right;
@@ -21,7 +21,7 @@ var yColumn = "healthcare"
 var xAxisLabelText = "In Poverty (%)";
 var xAxisLabelOffset = 55;
 var yAxisLabelText = "Lack Healthcare (%)";
-var yAxisLabelOffset = 55;
+var yAxisLabelOffset = 45;
 
 // Append the svg element on the designeted place
 var svg = d3.select("#scatter").append("svg")
@@ -56,7 +56,9 @@ var xAxisLabel = xAxisG.append("text")
 // Add yaxis labels
 var yAxisLabel = yAxisG.append("text")
   .style("text-anchor", "middle")
-  .attr("transform", "translate(" + yAxisLabelOffset + "," + (innerHeight / 2) + ")")
+  .attr("transform", "rotate(-90)")
+  .attr("y", 0 - yAxisLabelOffset)
+  .attr("x", 0 - (innerHeight / 2))
   .attr("class", "label")
   .text(yAxisLabelText);
 

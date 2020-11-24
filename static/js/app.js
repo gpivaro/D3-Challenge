@@ -73,6 +73,7 @@ function render(data) {
   xScale.domain(d3.extent(data, function (d) { return d[xColumn]; }));
   yScale.domain(d3.extent(data, function (d) { return d[yColumn]; }));
 
+
   // Apply the axis
   xAxisG.call(xAxis);
   yAxisG.call(yAxis);
@@ -107,9 +108,8 @@ function render(data) {
     .attr("x", function (d) { return (xScale(d[xColumn]) - xCircleLabelOffset); })
     .attr("y", function (d) { return (yScale(d[yColumn]) + yCircleLabelOffset); })
     .text(function (d) { return d['abbr']; })
-    .attr("font-family", "sans-serif")
-    .attr("font-size", "10px")
-    .attr("fill", "white");
+    .classed("stateText", true)
+    .attr("font-size", `${circleRadius}px`);
 
 
 };

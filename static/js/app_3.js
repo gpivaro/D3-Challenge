@@ -25,7 +25,10 @@ function makeResponsive() {
     // create svg container
     var svg = d3.select("#scatter").append("svg")
         .attr("width", svgWidth)
-        .attr("height", svgHeigth);
+        .attr("height", svgHeigth)
+        // .attr("style", "margin: auto")
+        // .attr("style", "text-align:center")
+        .attr("style", "background-color: beige")
 
     // shift everything over by the margins
     var chartGroup = svg.append("g")
@@ -57,15 +60,17 @@ function makeResponsive() {
         // scale y to chart height
         var yScale = d3.scaleLinear()
             .domain([3, 1.1 * d3.max(data, function (d) { return d[yColumn]; })])
-            .range([chartHeight, 0]);
+            .range([chartHeight, 0])
+            .nice();
 
         // scale x to chart width
         var xScale = d3.scaleLinear()
-            .domain([8.5, 1.1 * d3.max(data, function (d) { return d[xColumn]; })])
-            .range([0, chartWidth]);
+            .domain(d3.extent(data, function (d) { return d[xColumn]; }))
+            .range([0, chartWidth])
+            .nice();
 
         // create axes
-        var yAxis = d3.axisLeft(yScale);
+        var yAxis = d3.axisLeft(yScale).tickSize(-chartWidth);
         var xAxis = d3.axisBottom(xScale);
 
 
@@ -85,10 +90,10 @@ function makeResponsive() {
         // Enter data
         circles.enter()
             .append("circle")
-            .attr("r", circleRadius)
-            .classed("stateCircle", true)
             .attr("cx", d => xScale(d[xColumn]))
             .attr("cy", d => yScale(d[yColumn]))
+            .attr("r", circleRadius)
+            .classed("stateCircle", true)
 
 
         // Exit data
@@ -123,6 +128,21 @@ function makeResponsive() {
             .attr("text-anchor", "middle")
             .classed("dow-text text", true)
             .text("Lacks Healthcare (%)");
+
+
+
+
+        // Insert a table
+        d3.select("table")
+            .selectAll("tr")
+            .data(data)
+            .enter()
+            .append("tr")
+            .html(function (d) {
+                return `<td>${d.abbr}</td><td>${d[xColumn]}</td><td>${d[yColumn]}</td>`;
+            })
+        // .attr("")
+
 
 
     }).catch(function (error) {

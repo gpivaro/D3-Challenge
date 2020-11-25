@@ -12,6 +12,7 @@ html {
 body {
   /* Padding bottom by footer height */
   padding-bottom: 80px;
+  /* text-align: justify; */
 }
 
 .article{
@@ -26,11 +27,11 @@ h2{
   text-align: center;
 }
 
-.col-md-8{
+/* .col-md-8{
   background-color:lightgray;
   padding: 35px;
   align-content: center;
-}
+} */
 
 
 .jumbotron {

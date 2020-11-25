@@ -14,6 +14,35 @@ body {
   padding-bottom: 80px;
 }
 
+.article{
+  text-align: justify;
+}
+
+h1{
+  text-align: center;
+}
+
+h2{
+  text-align: center;
+}
+
+.col-md-8{
+  background-color:lightgray;
+  padding: 35px;
+  align-content: center;
+}
+
+
+.jumbotron {
+  padding: 30px;
+  margin-bottom: 30px;
+  font-size: 21px;
+  font-weight: 200;
+  line-height: 2.1428571435;
+  color: white;
+  background-color: rebeccapurple;
+}
+
 #footer {
   position: absolute;
   bottom: 0;

@@ -11,9 +11,9 @@ function makeResponsive() {
     };
 
 
-    // svg container
+    // svg container is variable with the browser window size
     var svgWidth = window.innerWidth / 1.8;
-    var svgHeigth = window.innerHeight / 1.13;
+    var svgHeigth = window.innerHeight / 1.6;
 
     // margins
     var margin = { left: 80, top: 30, right: 30, bottom: 80 };
@@ -123,9 +123,6 @@ function makeResponsive() {
             .attr("text-anchor", "middle")
             .classed("dow-text text", true)
             .text("Lacks Healthcare (%)");
-
-
-
 
 
     }).catch(function (error) {

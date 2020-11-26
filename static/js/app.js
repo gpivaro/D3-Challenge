@@ -10,7 +10,6 @@ function makeResponsive() {
         svgArea.remove();
     };
 
-
     // Get the text width size for sizing the SVG
     var element = d3.select('#textContent').node();
     var svgDivWidth = element.getBoundingClientRect().width;
@@ -19,11 +18,16 @@ function makeResponsive() {
 
     // svg container is variable with the browser window size
     var svgWidth = svgDivWidth;
+    // Set the height to be 2/3 of the widht
     var svgHeigth = svgWidth * 2 / 3;
 
-
     // margins
-    var margin = { left: 80, top: 30, right: 30, bottom: 80 };
+    var margin = {
+        left: 80,
+        top: 30,
+        right: 30,
+        bottom: 80
+    };
 
     // chart area minus margins
     var chartWidth = svgWidth - margin.left - margin.right;
@@ -45,7 +49,7 @@ function makeResponsive() {
     var xColumn = "poverty";
     var yColumn = "healthcare"
 
-    // Axis title offset
+    // Axis title offset for better location of the titles
     var xAxisLabelOffset = 20;
     var yAxisLabelOffset = 35;
 
@@ -59,7 +63,7 @@ function makeResponsive() {
             data.healthcare = +data.healthcare;
         });
 
-        // scale y to chart height
+        // scale y to chart height with 10% over the max
         var yScale = d3.scaleLinear()
             .domain([3, 1.1 * d3.max(data, function (d) { return d[yColumn]; })])
             .range([chartHeight, 0])
@@ -131,7 +135,7 @@ function makeResponsive() {
         // Step 1: Initialize Tooltip
         var toolTip = d3.tip()
             .attr("class", "d3-tip") //toolTip doesn't have a "classed()" function like core d3 uses to add classes, so we use the attr() method.
-            .offset([100, 100]) // (vertical, horizontal)
+            .offset([0, 95]) // (vertical, horizontal)
             .html(function (d) {
                 return (`<strong>${(d.state)}</strong><br/>In Poverty ${(d.poverty)}%<br/>Lacks Healthcare ${d.healthcare}%`);
             });

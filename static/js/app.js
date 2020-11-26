@@ -11,7 +11,7 @@ function makeResponsive() {
     };
 
 
-    // Get the jumbotron div size for sizing the SVG
+    // Get the text width size for sizing the SVG
     var element = d3.select('#textContent').node();
     var svgDivWidth = element.getBoundingClientRect().width;
     console.log(`SVG div widht = ${svgDivWidth}`);
@@ -20,8 +20,7 @@ function makeResponsive() {
     // svg container is variable with the browser window size
     var svgWidth = svgDivWidth;
     var svgHeigth = svgWidth * 2/3;
-    // var svgWidth = window.innerWidth / 1.8;
-    // var svgHeigth = window.innerHeight / 1.6;
+
 
     // margins
     var margin = { left: 80, top: 30, right: 30, bottom: 80 };
@@ -135,7 +134,30 @@ function makeResponsive() {
             .classed("dow-text text", true)
             .text("Lacks Healthcare (%)");
 
-        
+
+            // Step 1: Initialize Tooltip
+          var toolTip = d3.tip()
+            .attr("class", "d3-tip") //toolTip doesn't have a "classed()" function like core d3 uses to add classes, so we use the attr() method.
+            .offset([80, 50]) // (vertical, horizontal)
+            .html(function(d) {
+              return (`<strong>${dateFormatter(d.abbr)}<strong><hr>${d[xColumn]}
+              medal(s) won`);
+            });
+
+          // Step 2: Create the tooltip in chartGroup.
+          chartGroup.call(toolTip);
+
+          // Step 3: Create "mouseover" event listener to display tooltip
+          circles.on("mouseover", function(d) {
+            toolTip.show(d, this);
+          })
+          // Step 4: Create "mouseout" event listener to hide tooltip
+            .on("mouseout", function(d) {
+              toolTip.hide(d);
+            });
+
+
+
 
     }).catch(function (error) {
         console.log(error);

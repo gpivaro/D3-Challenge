@@ -11,9 +11,17 @@ function makeResponsive() {
     };
 
 
+    // Get the jumbotron div size for sizing the SVG
+    var element = d3.select('#textContent').node();
+    var svgDivWidth = element.getBoundingClientRect().width;
+    console.log(`SVG div widht = ${svgDivWidth}`);
+
+
     // svg container is variable with the browser window size
-    var svgWidth = window.innerWidth / 1.8;
-    var svgHeigth = window.innerHeight / 1.6;
+    var svgWidth = svgDivWidth;
+    var svgHeigth = svgWidth * 2/3;
+    // var svgWidth = window.innerWidth / 1.8;
+    // var svgHeigth = window.innerHeight / 1.6;
 
     // margins
     var margin = { left: 80, top: 30, right: 30, bottom: 80 };
@@ -26,9 +34,7 @@ function makeResponsive() {
     var svg = d3.select("#scatter").append("svg")
         .attr("width", svgWidth)
         .attr("height", svgHeigth)
-        // .attr("style", "margin: auto")
-        // .attr("style", "text-align:center")
-        .attr("style", "background-color: beige")
+        // .attr("style", "background-color: beige")
 
     // shift everything over by the margins
     var chartGroup = svg.append("g")
@@ -129,21 +135,7 @@ function makeResponsive() {
             .classed("dow-text text", true)
             .text("Lacks Healthcare (%)");
 
-
-
-
-        // Insert a table
-        d3.select("table")
-            .selectAll("tr")
-            .data(data)
-            .enter()
-            .append("tr")
-            .html(function (d) {
-                return `<td>${d.abbr}</td><td>${d[xColumn]}</td><td>${d[yColumn]}</td>`;
-            })
-        // .attr("")
-
-
+        
 
     }).catch(function (error) {
         console.log(error);

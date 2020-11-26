@@ -1,3 +1,8 @@
+body {
+    background-color: lightgrey;
+}
+
+
 .iframeContainer {
   padding: 20px;
   border: 1px solid #e3e3e3;
@@ -17,6 +22,7 @@ body {
 
 .article{
   text-align: justify;
+  margin-top: 5%;
 }
 
 h1{
@@ -32,6 +38,10 @@ h2{
   padding: 35px;
   align-content: center;
 } */
+
+table{
+  text-align: center;
+}
 
 
 .jumbotron {

@@ -28,6 +28,31 @@
 </head>
 
 <body>
+
+	    <!-- nav bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="index_3.html">D3 Times</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="data.html">Data</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <br><br>
+<!-- nav bar -->
+
+
+
     <div class="container">
         <div class="row">
             <div class="col-8 mx-auto jumbotron">
@@ -37,8 +62,8 @@
         </div>
     </div>
     <div class="container">
-        <div class="col-md-8 mx-auto">
-            <div class="row">
+    	<div class="row">
+        	<div class="col-md-8 mx-auto">
                 <h2>Correlations Discovered Between Health Risks and Age, Income</h2>
                 <div id="scatter">
                     <!-- We append our chart here. -->
@@ -49,7 +74,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 mx-auto">
-                <div class="article">
+                <div id="textContent" class="article">
 
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                         labore et dolore magna aliqua. Fringilla urna porttitor rhoncus dolor purus non. Et sollicitudin
@@ -86,26 +111,6 @@
         </div>
     </div>
 
-    <div class="container">
-        <div class="col-md-8 mx-auto">
-            <div class="row">
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>State</th>
-                                <th>In Poverty (%)</th>
-                                <th>Lack of Healthcare (%)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- THIS IS WHERE YOUR DATA WILL GO -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Footer-->
     <div id="footer">
@@ -113,7 +118,6 @@
     </div>
 
     <script type="text/javascript" src="static/js/app_3.js"></script>
-    <!-- <script type="text/javascript" src="static/js/circle_text.js"></script> -->
 
 </body>
 

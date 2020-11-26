@@ -19,7 +19,7 @@ function makeResponsive() {
 
     // svg container is variable with the browser window size
     var svgWidth = svgDivWidth;
-    var svgHeigth = svgWidth * 2/3;
+    var svgHeigth = svgWidth * 2 / 3;
 
 
     // margins
@@ -33,7 +33,7 @@ function makeResponsive() {
     var svg = d3.select("#scatter").append("svg")
         .attr("width", svgWidth)
         .attr("height", svgHeigth)
-        // .attr("style", "background-color: beige")
+    // .attr("style", "background-color: beige")
 
     // shift everything over by the margins
     var chartGroup = svg.append("g")
@@ -134,28 +134,25 @@ function makeResponsive() {
             .classed("dow-text text", true)
             .text("Lacks Healthcare (%)");
 
-
-            // Step 1: Initialize Tooltip
-          var toolTip = d3.tip()
-            .attr("class", "d3-tip") //toolTip doesn't have a "classed()" function like core d3 uses to add classes, so we use the attr() method.
+        // Step 1: Initialize Tooltip
+        var toolTip = d3.tip()
+            .attr("class", "tooltip") //toolTip doesn't have a "classed()" function like core d3 uses to add classes, so we use the attr() method.
             .offset([80, 50]) // (vertical, horizontal)
-            .html(function(d) {
-              return (`<strong>${dateFormatter(d.abbr)}<strong><hr>${d[xColumn]}
-              medal(s) won`);
+            .html(function (d) {
+                return (`<strong>${(d.abbr)}<strong><hr>${d[xColumn]}medal(s) won`);
             });
 
-          // Step 2: Create the tooltip in chartGroup.
-          chartGroup.call(toolTip);
+        // Step 2: Create the tooltip in chartGroup.
+        chartGroup.call(toolTip);
 
-          // Step 3: Create "mouseover" event listener to display tooltip
-          circles.on("mouseover", function(d) {
+        // Step 3: Create "mouseover" event listener to display tooltip
+        circles.on("mouseover", function (d) {
             toolTip.show(d, this);
-          })
-          // Step 4: Create "mouseout" event listener to hide tooltip
-            .on("mouseout", function(d) {
-              toolTip.hide(d);
+        })
+            // Step 4: Create "mouseout" event listener to hide tooltip
+            .on("mouseout", function (d) {
+                toolTip.hide(d);
             });
-
 
 
 

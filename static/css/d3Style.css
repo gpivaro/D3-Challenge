@@ -48,35 +48,20 @@
   color: #fff;
   text-align: center;
   text-transform: capitalize;
-  background: rgba(0, 0, 0, 0.8);
+  background: rebeccapurple;
   border-radius: 4px;
 }
 
-.tooltip {
-  position: absolute;
-  width: 90px;
-  height: 70px;
-  padding: 10px;
-  font: 12px sans-serif;
-  text-align: center;
-  color: white;
-  background: blue;
-  border: 0;
-  border-radius: 10px;
-}
 
-/* Axis stile */
-.axis path,
+
+
 .axis line {
-  fill: none;
-  stroke: #000;
+  fill:none;
+  stroke:gray;
   shape-rendering: crispEdges;
+  opacity: .5;
 }
 
-/* Axis font-size */
-.axis text{
-  /* font-size: 16pt; */
-}
 
 /* Axis label */
 .axis .label {

@@ -32,7 +32,8 @@ function makeResponsive() {
     // create svg container
     var svg = d3.select("#scatter").append("svg")
         .attr("width", svgWidth)
-        .attr("height", svgHeigth)
+        .attr("height", svgHeigth);
+
 
     // shift everything over by the margins
     var chartGroup = svg.append("g")
@@ -43,57 +44,53 @@ function makeResponsive() {
 
     // Define the data columns for the plot
     var xColumn = "poverty";
-    var yColumn = "healthcare"
+    var yColumn = "healthcare";
 
     // Axis title offset
     var xAxisLabelOffset = 20;
     var yAxisLabelOffset = 35;
 
     // Use d3 to import the data
-    d3.csv("data/data.csv").then(function (data) {
+    d3.csv("data/data.csv").then(function (censusData) {
 
         // Print the csv imported data
         // console.log(data);
 
         // Cast the data value to a number for each piece of data
-        data.forEach(function (data) {
+        censusData.forEach(function (data) {
             data.poverty = +data.poverty;
             data.healthcare = +data.healthcare;
         });
 
-        // scale y to chart height
-        var yScale = d3.scaleLinear()
-            .domain([3, 1.1 * d3.max(data, function (d) { return d[yColumn]; })])
-            .range([chartHeight, 0])
-            .nice();
-
         // scale x to chart width
         var xScale = d3.scaleLinear()
-            .domain(d3.extent(data, function (d) { return d[xColumn]; }))
+            .domain(d3.extent(censusData, function (d) { return d[xColumn]; }))
             .range([0, chartWidth])
             .nice();
 
+        // scale y to chart height
+        var yScale = d3.scaleLinear()
+            .domain([3, 1.1 * d3.max(censusData, function (d) { return d[yColumn]; })])
+            .range([chartHeight, 0])
+            .nice();
+
         // create axes
-        var xAxis = d3.axisBottom(xScale).tickSize(-chartHeight).ticks(6);
-        var yAxis = d3.axisLeft(yScale).tickSize(-chartWidth).ticks(6);
-
-
+        var xAxis = d3.axisBottom(xScale).ticks(10);
+        var yAxis = d3.axisLeft(yScale).tickSize(-chartWidth);
 
         // set the x axis to the bottom of the chart
         chartGroup.append("g")
             .attr("transform", `translate(0, ${chartHeight})`)
-            .attr("class", "axis")
             .call(xAxis)
 
         // set the y axis
         chartGroup.append("g")
-            .attr("class", "axis")
             .call(yAxis)
 
 
         // Bind data to the circles
         var circlesGroup = chartGroup.selectAll("circle")
-            .data(data)
+            .data(censusData)
             .enter()
             .append("circle")
             .attr("cx", d => xScale(d[xColumn]))
@@ -107,7 +104,7 @@ function makeResponsive() {
 
 
         //Add the SVG Text Element to the group
-        var circlesLabel = chartGroup.selectAll("circles").data(data);
+        var circlesLabel = chartGroup.selectAll("circles").data(censusData);
 
         //Add SVG Text Element Attributes
         circlesLabel.enter()
@@ -138,9 +135,9 @@ function makeResponsive() {
         // Step 1: Initialize Tooltip
         var toolTip = d3.tip()
             .attr("class", "d3-tip") //toolTip doesn't have a "classed()" function like core d3 uses to add classes, so we use the attr() method.
-            .offset([100, 100]) // (vertical, horizontal)
+            .offset([180, 150]) // (vertical, horizontal)
             .html(function (d) {
-                return (`<strong>${(d.state)}</strong><br/>In Poverty ${(d.poverty)}%<br/>Lacks Healthcare ${d.healthcare}%`);
+                return (`<strong>${(d.abbr)}<strong><hr>${d[xColumn]}medal(s) won`);
             });
 
         // Step 2: Create the tooltip in chartGroup.

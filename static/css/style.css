@@ -1,7 +1,11 @@
 body {
-    background-color: lightgrey;
+    background-color:white;
 }
 
+.col{
+  background-color: lightgrey;
+  padding: 5%;
+}
 
 .iframeContainer {
   padding: 20px;
@@ -33,11 +37,7 @@ h2{
   text-align: center;
 }
 
-/* .col-md-8{
-  background-color:lightgray;
-  padding: 35px;
-  align-content: center;
-} */
+
 
 table{
   text-align: center;
@@ -46,12 +46,17 @@ table{
 
 .jumbotron {
   padding: 30px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   font-size: 21px;
   font-weight: 200;
   line-height: 2.1428571435;
   color: white;
   background-color: rebeccapurple;
+  /* margin-top: 0%; */
+}
+
+.navbar {
+  margin-bottom: .1%;
 }
 
 #footer {

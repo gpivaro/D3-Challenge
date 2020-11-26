@@ -52,8 +52,6 @@ function makeResponsive() {
     // Use d3 to import the data
     d3.csv("data/data.csv").then(function (data) {
 
-        // Print the csv imported data
-        // console.log(data);
 
         // Cast the data value to a number for each piece of data
         data.forEach(function (data) {
@@ -77,8 +75,6 @@ function makeResponsive() {
         var xAxis = d3.axisBottom(xScale).tickSize(-chartHeight).ticks(6);
         var yAxis = d3.axisLeft(yScale).tickSize(-chartWidth).ticks(6);
 
-
-
         // set the x axis to the bottom of the chart
         chartGroup.append("g")
             .attr("transform", `translate(0, ${chartHeight})`)
@@ -90,7 +86,6 @@ function makeResponsive() {
             .attr("class", "axis")
             .call(yAxis)
 
-
         // Bind data to the circles
         var circlesGroup = chartGroup.selectAll("circle")
             .data(data)
@@ -101,10 +96,8 @@ function makeResponsive() {
             .attr("r", circleRadius)
             .classed("stateCircle", true)
 
-
         // Exit data
         circlesGroup.exit().remove();
-
 
         //Add the SVG Text Element to the group
         var circlesLabel = chartGroup.selectAll("circles").data(data);
@@ -163,7 +156,7 @@ function makeResponsive() {
 
 };
 
-
+// Call the function
 makeResponsive();
 
 // Event listener for window resize.

@@ -53,8 +53,6 @@
 }
 
 
-
-
 .axis line {
   fill:none;
   stroke:gray;
@@ -67,7 +65,6 @@
 .axis .label {
   font-size: 16pt;
 }
-
 
 
 /* Mobile Rules */

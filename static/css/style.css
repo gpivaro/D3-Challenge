@@ -74,3 +74,11 @@ table{
   margin: 0;
   font-size: 16px;
 }
+
+/* MD styling */
+@media (max-width: 768px) {
+  .container {
+    /* width: inherit; */
+    min-width: 100%;
+  }
+}

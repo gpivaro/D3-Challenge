@@ -1,8 +1,4 @@
 
-
-
-
-
 // main function
 function makeResponsive() {
 
@@ -11,7 +7,6 @@ function makeResponsive() {
     var yCircleLabelOffset = 3;
 
     // Define the data columns for the plot
-    var xColumn = "poverty";
     var yColumn = "healthcare"
 
     // y axis min value 
@@ -108,6 +103,19 @@ function makeResponsive() {
         return circlesGroup;
     };
 
+    // function used for updating circles label group with a transition to
+    // new circles
+    function renderCirclesLabel(circlesLabel, newXScale, chosenXaxis) {
+        // console.log(circlesLabel);
+        circlesLabel.transition()
+            .duration(1000)
+            .attr("x", d => newXScale(d[chosenXAxis]));
+
+        return circlesLabel;
+    };
+
+
+
     // function used for updating circles group with new tooltip
     function updateToolTip(chosenXAxis, circlesGroup) {
 
@@ -173,17 +181,6 @@ function makeResponsive() {
         var leftAxis = d3.axisLeft(yLinearScale);
 
 
-
-        // scale x to chart width
-        // var xScale = d3.scaleLinear()
-        //     .domain(d3.extent(data, function (d) { return d[xColumn]; }))
-        //     .range([0, chartWidth])
-        //     .nice();
-
-        // create axes
-        // var xAxis = d3.axisBottom(xScale).tickSize(-chartHeight).ticks(6);
-        // var yAxis = d3.axisLeft(yScale).tickSize(-chartWidth).ticks(6);
-
         // set the x axis to the bottom of the chart
         var xAxis = chartGroup.append("g")
             .attr("transform", `translate(0, ${chartHeight})`)
@@ -221,47 +218,12 @@ function makeResponsive() {
             .text(d => `${d.abbr}`)
             .attr("font-size", `${circleRadius}px`);
 
-        // // Append x-axis titles
-        // chartGroup.append("text")
-        //     .attr("transform", `translate(${chartWidth / 2}, ${chartHeight + margin.top + xAxisLabelOffset})`)
-        //     .attr("text-anchor", "middle")
-        //     .classed("dow-text text", true)
-        //     .text("In Poverty (%)");
 
-        // // Append y-axis titles
-        // chartGroup.append("text")
-        //     .attr("transform", "rotate(-90)")
-        //     .attr("y", 0 - yAxisLabelOffset)
-        //     .attr("x", 0 - (chartHeight / 2))
-        //     .attr("text-anchor", "middle")
-        //     .classed("dow-text text", true)
-        //     .text("Lacks Healthcare (%)");
-
-        // // Step 1: Initialize Tooltip
-        // var toolTip = d3.tip()
-        //     .attr("class", "d3-tip") //toolTip doesn't have a "classed()" function like core d3 uses to add classes, so we use the attr() method.
-        //     .offset([toottipVerticalPos, toottipHorizontalPos]) // (vertical, horizontal) 
-        //     .html(function (d) {
-        //         return (`<strong>${(d.state)}</strong><br/>In Poverty ${(d.poverty)}%<br/>Lacks Healthcare ${d.healthcare}%`);
-        //     });
-
-        // // Step 2: Create the tooltip in chartGroup.
-        // chartGroup.call(toolTip);
-
-        // // Step 3: Create "mouseover" event listener to display tooltip
-        // circlesGroup.on("mouseover", function (d) {
-        //     toolTip.show(d, this);
-        // })
-        //     // Step 4: Create "mouseout" event listener to hide tooltip
-        //     .on("mouseout", function (d) {
-        //         toolTip.hide(d);
-        //     });
-
-
-        // Create group for  2 x- axis labels
+        // Create group for  3 x- axis labels
         var labelsGroup = chartGroup.append("g")
             .attr("transform", `translate(${chartWidth / 2}, ${chartHeight + 20})`);
 
+        // Poverty title
         var InPovertyLabel = labelsGroup.append("text")
             .attr("x", 0)
             .attr("y", 20)
@@ -269,12 +231,22 @@ function makeResponsive() {
             .classed("active", true)
             .text("In Poverty (%)");
 
+        // Age title
         var AgeMedianLabel = labelsGroup.append("text")
             .attr("x", 0)
             .attr("y", 40)
             .attr("value", "age") // value to grab for event listener
             .classed("inactive", true)
             .text("Age (Median)");
+
+        // Household x title
+        var IncomeMedianLabel = labelsGroup.append("text")
+            .attr("x", 0)
+            .attr("y", 60)
+            .attr("value", "income") // value to grab for event listener
+            .classed("inactive", true)
+            .text("Household Income (Median)");
+
 
         // append y axis
         chartGroup.append("text")
@@ -297,8 +269,6 @@ function makeResponsive() {
 
                     // replaces chosenXAxis with value
                     chosenXAxis = value;
-                    // console.log(chosenXAxis);
-
                     // console.log(chosenXAxis)
 
                     // functions here found above csv import
@@ -311,23 +281,43 @@ function makeResponsive() {
                     // updates circles with new x values
                     circlesGroup = renderCircles(circlesGroup, xLinearScale, chosenXAxis);
 
+                    // updates circles label   with new x values
+                    circlesLabel = renderCirclesLabel(circlesLabel, xLinearScale, chosenXAxis);
+
                     // updates tooltips with new info
                     circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
 
                     // changes classes to change bold text
-                    if (chosenXAxis === "ageMedian") {
-                        AgeMedianLabel
+                    if (chosenXAxis === "poverty") {
+                        InPovertyLabel
                             .classed("active", true)
                             .classed("inactive", false);
-                        InPovertyLabel
+                        AgeMedianLabel
+                            .classed("active", false)
+                            .classed("inactive", true);
+                        IncomeMedianLabel
                             .classed("active", false)
                             .classed("inactive", true);
                     }
-                    else {
+                    else if (chosenXAxis === "age") {
+                        InPovertyLabel
+                            .classed("active", false)
+                            .classed("inactive", true);
+                        AgeMedianLabel
+                            .classed("active", true)
+                            .classed("inactive", false);
+                        IncomeMedianLabel
+                            .classed("active", false)
+                            .classed("inactive", true);
+                    }
+                    else if (chosenXAxis === "income") {
+                        InPovertyLabel
+                            .classed("active", false)
+                            .classed("inactive", true);
                         AgeMedianLabel
                             .classed("active", false)
                             .classed("inactive", true);
-                        InPovertyLabel
+                        IncomeMedianLabel
                             .classed("active", true)
                             .classed("inactive", false);
                     }

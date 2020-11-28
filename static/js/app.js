@@ -90,14 +90,14 @@ function makeResponsive() {
             .attr("class", "axis")
             .call(yAxis)
 
-        // Append x-axis titles
+        // Append x-axis label
         chartGroup.append("text")
             .attr("transform", `translate(${chartWidth / 2}, ${chartHeight + margin.top + xAxisLabelOffset})`)
             .attr("text-anchor", "middle")
             .classed("dow-text text", true)
             .text("In Poverty (%)");
 
-        // Append y-axis titles
+        // Append y-axis label
         chartGroup.append("text")
             .attr("transform", "rotate(-90)")
             .attr("y", 0 - yAxisLabelOffset)
@@ -121,10 +121,12 @@ function makeResponsive() {
         circlesGroup.exit().remove();
 
         //Add the SVG Text Element to the group
-        var circlesLabel = chartGroup.selectAll("circles").data(data);
+        var circlesLabel = chartGroup.selectAll("circles");
 
         //Add SVG Text Element Attributes
-        circlesLabel.enter()
+        circlesLabel
+            .data(data)
+            .enter()
             .append("text")
             .classed("stateText", true)
             .attr("text-anchor", "middle")

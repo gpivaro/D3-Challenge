@@ -67,11 +67,11 @@ function makeResponsive() {
 
 
     // function used for updating x-scale var upon click on axis label
-    function xScale(hairData, chosenXAxis) {
+    function xScale(data, chosenXAxis) {
         // create scales
         var xLinearScale = d3.scaleLinear()
-            .domain([d3.min(hairData, d => d[chosenXAxis]) * 0.8,
-            d3.max(hairData, d => d[chosenXAxis]) * 1.2
+            .domain([d3.min(data, d => d[chosenXAxis]) * 0.8,
+            d3.max(data, d => d[chosenXAxis]) * 1.2
             ])
             .range([0, chartWidth]);
 
@@ -80,14 +80,26 @@ function makeResponsive() {
     };
 
     // function used for updating xAxis var upon click on axis label
-    function renderAxes(newXScale, xAxis) {
-        var bottomAxis = d3.axisBottom(newXScale);
+    function renderAxesX(newXScale, xAxis) {
+        var bottomAxis = d3.axisBottom(newXScale).tickSize(-chartHeight).ticks(6);
 
         xAxis.transition()
             .duration(1000)
             .call(bottomAxis);
 
         return xAxis;
+    };
+
+    // function used for updating xAxis var upon click on axis label
+    function renderAxesY(newXScale, yAxis) {
+        var leftAxis = d3.axisLeft(newXScale).tickSize(-chartWidth).ticks(6);
+
+        yAxis.transition()
+            .duration(1000)
+            .call(leftAxis);
+
+        return yAxis;
+
     };
 
     // function used for updating circles group with a transition to
@@ -101,17 +113,49 @@ function makeResponsive() {
         return circlesGroup;
     };
 
-    // function used for updating circles label group with a transition to
-    // new circles
-    function renderCirclesLabel(circlesLabel, newXScale, chosenXaxis) {
-        // console.log(circlesLabel);
-        circlesLabel.transition()
+    function renderCirclesText(textCircle, newXScale, chosenXaxis) {
+
+        textCircle.transition()
             .duration(1000)
             .attr("x", d => newXScale(d[chosenXAxis]));
 
-        return circlesLabel;
+        return textCircle;
     };
 
+
+
+
+    // // function used for updating circles label group with a transition to
+    // // new circles
+    // function renderCirclesLabel(circlesLabel, data, newXScale, yLinearScale, chosenXAxis) {
+
+    //     var circlesLabel = chartGroup.selectAll("circles");
+
+    //     //Add SVG Text Element Attributes
+    //     circlesLabel
+    //         .data(data)
+    //         .enter()
+    //         .merge(circlesLabel)
+    //         .append("text")
+    //         .classed("stateText", true)
+    //         .attr("text-anchor", "middle")
+    //         .attr("x", d => newXScale(d[chosenXAxis]))
+    //         .attr("y", d => yLinearScale(d[yColumn]) + yCircleLabelOffset)
+    //         .text(d => `${d.abbr}`)
+    //         .attr("font-size", `${circleRadius}px`);
+    //     circlesLabel.exit().remove();
+
+    //     // // // console.log(circlesLabel);
+    //     // circlesLabel.transition()
+    //     //     .duration(1000)
+    //     //     .attr("x", d => newXScale(d[chosenXAxis]))
+    //     //     .attr("y", d => yLinearScale(d[yColumn]) + yCircleLabelOffset)
+    //     //     .text(d => `${d.abbr}`)
+    //     //     .attr("font-size", `${circleRadius}px`);
+
+
+    //     return circlesLabel;
+    // };
 
 
     // function used for updating circles group with new tooltip
@@ -178,8 +222,8 @@ function makeResponsive() {
 
 
         // Create initial axis functions
-        var bottomAxis = d3.axisBottom(xLinearScale);
-        var leftAxis = d3.axisLeft(yLinearScale);
+        var bottomAxis = d3.axisBottom(xLinearScale).tickSize(-chartHeight).ticks(6);
+        var leftAxis = d3.axisLeft(yLinearScale).tickSize(-chartWidth).ticks(6);
 
 
         // set the x axis to the bottom of the chart
@@ -189,36 +233,9 @@ function makeResponsive() {
             .call(bottomAxis)
 
         // set the y axis
-        chartGroup.append("g")
+        var yAxis = chartGroup.append("g")
             .attr("class", "axis")
             .call(leftAxis)
-
-        // Bind data to the circles
-        var circlesGroup = chartGroup.selectAll("circle")
-            .data(data)
-            .enter()
-            .append("circle")
-            .attr("cx", d => xLinearScale(d[chosenXAxis]))
-            .attr("cy", d => yLinearScale(d[yColumn]))
-            .attr("r", circleRadius)
-            .classed("stateCircle", true)
-
-        // Exit data
-        // circlesGroup.exit().remove();
-
-        //Add the SVG Text Element to the group
-        var circlesLabel = chartGroup.selectAll("circles").data(data);
-
-        //Add SVG Text Element Attributes
-        circlesLabel.enter()
-            .append("text")
-            .classed("stateText", true)
-            .attr("text-anchor", "middle")
-            .attr("x", d => xLinearScale(d[chosenXAxis]))
-            .attr("y", d => yLinearScale(d[yColumn]) + yCircleLabelOffset)
-            .text(d => `${d.abbr}`)
-            .attr("font-size", `${circleRadius}px`);
-
 
         // Create group for  3 x- axis labels
         var labelsGroup = chartGroup.append("g")
@@ -248,8 +265,7 @@ function makeResponsive() {
             .classed("inactive", true)
             .text("Household Income (Median)");
 
-
-        // append y axis
+        // append y axis label
         chartGroup.append("text")
             .attr("transform", "rotate(-90)")
             .attr("y", 0 - yAxisLabelOffset)
@@ -257,6 +273,47 @@ function makeResponsive() {
             .attr("text-anchor", "middle")
             .classed("dow-text text", true)
             .text("Lacks Healthcare (%)");
+
+
+        // Bind data to the circles
+        var circlesGroup = chartGroup.selectAll("circle")
+            .data(data)
+            .enter()
+            .append("circle")
+            .attr("cx", d => xLinearScale(d[chosenXAxis]))
+            .attr("cy", d => yLinearScale(d[yColumn]))
+            .attr("r", circleRadius)
+            .classed("stateCircle", true)
+
+        // Exit data
+        circlesGroup.exit().remove();
+
+        // Bind data to the circles
+        var textCircle = chartGroup.selectAll("#stateCircle")
+            .data(data).enter()
+            .append("text")
+            .classed("stateText", true)
+            .attr("text-anchor", "middle")
+            .attr("font-size", `${circleRadius}px`)
+            .attr("x", d => xLinearScale(d[chosenXAxis]))
+            .attr("y", d => yLinearScale(d[yColumn]) + yCircleLabelOffset)
+            .text(d => d.abbr);
+        textCircle.exit().remove();
+
+
+        // var circlesLabel = chartGroup.selectAll("circles");
+
+        // //Add SVG Text Element Attributes
+        // circlesLabel
+        //     .data(data)
+        //     .enter()
+        //     .append("text")
+        //     .classed("stateText", true)
+        //     .attr("text-anchor", "middle")
+        //     .attr("x", d => xLinearScale(d[chosenXAxis]))
+        //     .attr("y", d => yLinearScale(d[yColumn]) + yCircleLabelOffset)
+        //     .text(d => `${d.abbr}`)
+        //     .attr("font-size", `${circleRadius}px`);
 
         // updateToolTip function above csv import
         var circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
@@ -277,13 +334,17 @@ function makeResponsive() {
                     xLinearScale = xScale(data, chosenXAxis);
 
                     // updates x axis with transition
-                    xAxis = renderAxes(xLinearScale, xAxis);
+                    xAxis = renderAxesX(xLinearScale, xAxis);
+
+                    // updates x axis with transition
+                    // yAxis = renderAxesY(xLinearScale, yAxis);
 
                     // updates circles with new x values
                     circlesGroup = renderCircles(circlesGroup, xLinearScale, chosenXAxis);
 
                     // updates circles label   with new x values
-                    circlesLabel = renderCirclesLabel(circlesLabel, xLinearScale, chosenXAxis);
+                    // circlesLabel = renderCirclesLabel(circlesLabel, data, xLinearScale, yLinearScale, chosenXAxis);
+                    textCircle = renderCirclesText(textCircle, xLinearScale, chosenXAxis);
 
                     // updates tooltips with new info
                     circlesGroup = updateToolTip(chosenXAxis, circlesGroup);

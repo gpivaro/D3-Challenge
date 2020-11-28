@@ -90,6 +90,23 @@ function makeResponsive() {
             .attr("class", "axis")
             .call(yAxis)
 
+        // Append x-axis titles
+        chartGroup.append("text")
+            .attr("transform", `translate(${chartWidth / 2}, ${chartHeight + margin.top + xAxisLabelOffset})`)
+            .attr("text-anchor", "middle")
+            .classed("dow-text text", true)
+            .text("In Poverty (%)");
+
+        // Append y-axis titles
+        chartGroup.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 0 - yAxisLabelOffset)
+            .attr("x", 0 - (chartHeight / 2))
+            .attr("text-anchor", "middle")
+            .classed("dow-text text", true)
+            .text("Lacks Healthcare (%)");
+
+
         // Bind data to the circles
         var circlesGroup = chartGroup.selectAll("circle")
             .data(data)
@@ -116,21 +133,6 @@ function makeResponsive() {
             .text(d => `${d.abbr}`)
             .attr("font-size", `${circleRadius}px`);
 
-        // Append x-axis titles
-        chartGroup.append("text")
-            .attr("transform", `translate(${chartWidth / 2}, ${chartHeight + margin.top + xAxisLabelOffset})`)
-            .attr("text-anchor", "middle")
-            .classed("dow-text text", true)
-            .text("In Poverty (%)");
-
-        // Append y-axis titles
-        chartGroup.append("text")
-            .attr("transform", "rotate(-90)")
-            .attr("y", 0 - yAxisLabelOffset)
-            .attr("x", 0 - (chartHeight / 2))
-            .attr("text-anchor", "middle")
-            .classed("dow-text text", true)
-            .text("Lacks Healthcare (%)");
 
         // Step 1: Initialize Tooltip
         var toolTip = d3.tip()

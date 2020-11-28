@@ -8,6 +8,8 @@ function makeResponsive() {
 
     // Define the data columns for the plot
     var yColumn = "healthcare"
+    // Initial Params for axis selection
+    var chosenXAxis = "poverty";
 
     // y axis min value 
     var yScaleMin = 3;
@@ -64,10 +66,6 @@ function makeResponsive() {
         .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 
-    // Initial Params for axis selection
-    var chosenXAxis = "poverty";
-
-
     // function used for updating x-scale var upon click on axis label
     function xScale(hairData, chosenXAxis) {
         // create scales
@@ -122,25 +120,28 @@ function makeResponsive() {
         if (chosenXAxis === "poverty") {
             var label = "In Poverty (%)";
         }
-        else {
+        else if (chosenXAxis === "age") {
             var label = "Age (Median)";
+        }
+        else if (chosenXAxis === "income") {
+            var label = "Household Income (Median)";
         }
 
         var toolTip = d3.tip()
-            .attr("class", "tooltip")
-            .offset([80, -60])
+            .attr("class", "d3-tip")
+            .offset([0, 95])
             .html(function (d) {
-                return (`<strong>${(d.state)}</strong><br/>In Poverty ${(d[chosenXAxis])}%<br/>Lacks Healthcare ${d.healthcare}%`);
+                return (`<strong>${(d.state)}</strong><br/>${label + " " + d[chosenXAxis]}<br/>Lacks Healthcare ${d.healthcare}%`);
             });
 
-        circlesGroup.call(toolTip);
+        chartGroup.call(toolTip);
 
-        circlesGroup.on("mouseover", function (data) {
-            toolTip.show(data);
+        circlesGroup.on("mouseover", function (d) {
+            toolTip.show(d, this);
         })
             // onmouseout event
-            .on("mouseout", function (data, index) {
-                toolTip.hide(data);
+            .on("mouseout", function (d) {
+                toolTip.hide(d);
             });
 
         return circlesGroup;

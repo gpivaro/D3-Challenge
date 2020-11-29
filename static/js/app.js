@@ -149,7 +149,38 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup, chartGroup) {
     return circlesGroup;
 };
 
+function updateTitle(titleChart, chosenXAxis, chosenYAxis, chartGroup) {
 
+    if (chosenXAxis === "poverty") {
+        var xLabel = "In Poverty (%)";
+    }
+    else if (chosenXAxis === "age") {
+        var xLabel = "Age (Median)";
+    }
+    else if (chosenXAxis === "income") {
+        var xLabel = "Household Income (Median)";
+    }
+
+    if (chosenYAxis === "healthcare") {
+        var yLabel = "Lacks Healthcare";
+    }
+    else if (chosenYAxis === "smokes") {
+        var yLabel = "Smokes";
+    }
+    else if (chosenYAxis === "obesity") {
+        var yLabel = "Obese";
+    }
+
+    // Append x-axis label
+    var titleChart = chartGroup.append("text")
+        .attr("transform", `translate(${chartWidth / 2}, ${-10})`)
+        .attr("text-anchor", "middle")
+        .html(function (d) {
+            return (`${xLabel + "vs." + yLabel}%`);
+        });
+
+    return titleChart;
+}
 
 // main function
 function makeResponsive() {
@@ -287,8 +318,6 @@ function makeResponsive() {
             // .classed("dow-text text", true)
             .classed("inactive", true)
             .text("Smokes (%)");
-
-
 
         // Bind data to the circles
         var circlesGroup = chartGroup.selectAll("circle")

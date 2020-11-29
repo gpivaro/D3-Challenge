@@ -4,7 +4,7 @@ body {
 
 .col{
   /* background-color: #bdb2a4; */
-  background-color: #d1c694;
+  background-color: #adadad;
   padding: 5%;
 }
 
@@ -50,7 +50,7 @@ table{
   font-weight: 200;
   line-height: 2.1428571435;
   color: white;
-  background-color: rebeccapurple;
+  background-color: #557a95;
   /* margin-top: 0%; */
 }
 

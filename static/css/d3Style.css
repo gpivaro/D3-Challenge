@@ -32,7 +32,7 @@
 }
 
 .stateCircle {
-  fill:rebeccapurple;
+  fill:#557a95;
   stroke: #e3e3e3;
 }
 
@@ -49,7 +49,7 @@
   color: #fff;
   text-align: center;
   text-transform: capitalize;
-  background: rebeccapurple;
+  background: #557a95;
   border-radius: 4px;
 }
 

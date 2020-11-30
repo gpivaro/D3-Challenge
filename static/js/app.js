@@ -115,7 +115,7 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup, chartGroup) {
         var xLabel = "Age (Median)";
     }
     else if (chosenXAxis === "income") {
-        var xLabel = "Household Income (Median)";
+        var xLabel = "Income $";
     }
 
     if (chosenYAxis === "healthcare") {

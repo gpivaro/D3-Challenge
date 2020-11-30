@@ -33,7 +33,7 @@
 
 .stateCircle {
   fill:#66FCF1;
-  stroke: #e3e3e3;
+  stroke: #9a1750;
 }
 
 .chart {
@@ -49,7 +49,7 @@
   color: #fff;
   text-align: center;
   text-transform: capitalize;
-  background: #66FCF1;
+  background: #9a1750;
   border-radius: 4px;
 }
 

@@ -1,6 +1,6 @@
 # D3 Homework - Data Journalism and D3
 
-![Responsive](D3-Challenge/Images/D3js.gif)
+![D3js.gif](D3-Challenge/Images/D3js.gif)
 
 ## Background
 

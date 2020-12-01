@@ -2,7 +2,7 @@
 
 ![D3js.gif](Images/D3js.gif)
 
-<img style="float: right;" src="Images/D3js.gif">
+<img style="text-align: right" src="Images/D3js.gif">
 
 ## Background
 

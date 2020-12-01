@@ -1,6 +1,8 @@
 # D3 Homework - Data Journalism and D3
 
-![D3js.gif](Images/D3js.gif){: style="float:center"}
+![D3js.gif](Images/D3js.gif)
+
+<img style="float: center;" src="Images/D3js.gif">
 
 ## Background
 

@@ -16,7 +16,7 @@ The data set is from the U.S. Census Bureau and the Behavioral Risk Factor Surve
 
 ### D3 Dabbler
 
-Create a scatter plot between two of the data variables such as `Healthcare vs. Poverty` or `Smokers vs. Age`.
+Create a scatter plot between two of the data variables such as `Healthcare vs. Poverty`.
 
 ![Part_1.png](Images/Part_1.png)
 

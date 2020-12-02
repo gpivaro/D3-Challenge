@@ -6,7 +6,7 @@
 ![D3js.gif](Images/D3js.gif)
 
 
-This repository contains the following scenario and it is available [here](https://gpivaro.github.io/D3-Challenge/).
+This repository contains the following scenario and the final product is available [here](https://gpivaro.github.io/D3-Challenge/).
 
 
 Analyzing the current trends shaping people's lives, as well as creating charts, graphs, and interactive elements to help readers understand your findings.
@@ -20,7 +20,7 @@ Create a scatter plot between two of the data variables such as `Healthcare vs. 
 
 ![Part_1.png](Images/Part_1.png)
 
-Using the D3 techniques to create a scatter plot that represents each state with circle elements. The code for this graphic in the `app.js`. Pull in the data from `data.csv` by using the `d3.csv` function. The scatter plot is the image at the top of this section.
+Using the D3 techniques to create a scatter plot that represents each state with circle elements. The code for this graphic in the `app.js`. Pull in the data from `data.csv` by using the `d3.csv` function. The scatter plot is the image at the top of this section. You can see the final product by clicking [here.](https://gpivaro.github.io/D3-Challenge/index_1.html)
 
 The scatter plot has the following features:
 
@@ -47,7 +47,7 @@ Include more demographics and more risk factors. Place additional labels in the 
 
 While the ticks on the axes allow us to infer approximate values for each circle, it's impossible to determine the true value without adding another layer of data. Enter tooltips: developers can implement these in their D3 graphics to reveal a specific element's data when the user hovers their cursor over the element. Add tooltips to your circles and display each tooltip with the data that the user has selected.
 
-The final result of this part is at the top of this section.
+The final result of this part is at the top of this section. The bonus part is available [here.](https://gpivaro.github.io/D3-Challenge/)
 
 - - -
 

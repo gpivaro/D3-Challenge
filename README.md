@@ -20,7 +20,7 @@ Create a scatter plot between two of the data variables such as `Healthcare vs. 
 
 ![Part_1.png](Images/Part_1.png)
 
-Using the D3 techniques to create a scatter plot that represents each state with circle elements. The code for this graphic in the `app.js`. Pull in the data from `data.csv` by using the `d3.csv` function. The scatter plot is the image at the top of this section. You can see the final product by clicking [here.](https://gpivaro.github.io/D3-Challenge/index_1.html)
+Using the D3 techniques to create a scatter plot that represents each state with circle elements. The code for this graphic in the `app.js`. Pull in the data from [data.csv](data/data.csv) by using the `d3.csv` function. The scatter plot is the image at the top of this section. You can see the final product by clicking [here.](https://gpivaro.github.io/D3-Challenge/index_1.html)
 
 The scatter plot has the following features:
 

@@ -12,6 +12,7 @@ This repository contains the following scenario:
 Analyzing the current trends shaping people's lives, as well as creating charts, graphs, and interactive elements to help readers understand your findings.
 The data set is from the U.S. Census Bureau and the Behavioral Risk Factor Surveillance System and can be used to tell a story about the health risks facing particular demographics.The data set included is based on 2014 ACS 1-year estimates from the [US Census Bureau](https://data.census.gov/cedsci/). The current data set includes data on rates of income, obesity, poverty, etc. by state. MOE stands for "margin of error."
 
+- - -
 
 ### D3 Dabbler
 
@@ -48,9 +49,13 @@ While the ticks on the axes allow us to infer approximate values for each circle
 
 The final result of this part is at the top of this section.
 
+- - -
+
 ##### Responsiveness:
 
 ![D3_responsive.gif](Images/D3_responsive.gif)
+
+- - -
 
 ##### Table with the source data:
 
